@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Input from "../components/Input";
-import { Loader, Lock, Mail, User } from "lucide-react";
+import { FileDigit, IdCard, Loader, Locate, Lock, Mail, Phone, School, School2, University, User, Workflow } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
@@ -46,6 +46,48 @@ const SignUpPage = () => {
 						onChange={(e) => setName(e.target.value)}
 					/>
 					<Input
+						icon={School}
+						type='text'
+						placeholder='Batch'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
+						icon={School2}
+						type='text'
+						placeholder='School Index'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>				
+					<Input
+						icon={Locate}
+						type='text'
+						placeholder='Country of Residence'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
+						icon={Workflow}
+						type='text'
+						placeholder='Designation'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
+						icon={Phone}
+						type='text'
+						placeholder='Phone Number (Whatsapp)'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
+						icon={IdCard}
+						type='text'
+						placeholder='PPA ID (if exsist)'
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
 						icon={Mail}
 						type='email'
 						placeholder='Email Address'
@@ -56,6 +98,13 @@ const SignUpPage = () => {
 						icon={Lock}
 						type='password'
 						placeholder='Password'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					<Input
+						icon={Lock}
+						type='password'
+						placeholder='Confirm Password'
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
