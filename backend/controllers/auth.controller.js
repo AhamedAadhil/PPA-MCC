@@ -10,6 +10,7 @@ import {
   sendWelcomeEmail,
   sendPasswordResetEmail,
   sendResetSuccessEmail,
+  sendLoginNotifyMail,
 } from "../nodemailer/emails.js";
 
 export const signup = async (req, res) => {
@@ -49,12 +50,6 @@ export const signup = async (req, res) => {
       throw new Error("All fields are required");
     }
 
-    // generate new PPA id only if it not exist
-    let ppaId = _ppaid ? _ppaid.trim() : "";
-    if (!ppaId) {
-      ppaId = generatePPAID(country, index);
-    }
-
     // check if user already exist with same email or index
     const userAlreadyExistWithEmailOrIndex = await User.findOne({
       $or: [{ email }, { index }],
@@ -70,6 +65,10 @@ export const signup = async (req, res) => {
 
     //generate verification code
     const verifyToken = generateVerificationToken();
+
+    // get usercount and generate PPA id
+    const userCount = await User.countDocuments();
+    const ppaId = generatePPAID(index, userCount);
 
     //  create new user
     const user = await new User({
@@ -92,7 +91,7 @@ export const signup = async (req, res) => {
     await user.save();
 
     //generate jwt token
-    generateTokenAndSetCookie(res, user._id);
+    generateTokenAndSetCookie(res, user._id, user.role, user.status);
 
     // send verification email to user
     await sendVerificationEmail(user.email, user.verificationToken);
@@ -130,7 +129,9 @@ export const login = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Account not verified!" });
     }
+    //generate a jwt token and update last login with current date
     generateTokenAndSetCookie(res, user._id);
+    await sendLoginNotifyMail(user.email, user.fullname, user.lastlogin);
     user.lastlogin = new Date();
     await user.save();
 
@@ -170,7 +171,7 @@ export const verifyEmail = async (req, res) => {
     // save the user to db
     await user.save();
     // send welcome mail
-    await sendWelcomeEmail(user.email, user.fullname);
+    await sendWelcomeEmail(user.email, user.fullname, user._ppaid);
 
     res.status(200).json({
       success: true,

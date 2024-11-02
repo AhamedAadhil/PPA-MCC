@@ -112,7 +112,39 @@ export const WELCOME_EMAIL_TEMPLATE = `
     <p>We're thrilled to have you join us! Welcome to the Past Pupils' Association of Muslim Central College (National School), Akkaraipattu.</p>
     <p>As a new member, you'll have access to all updates and events and can connect with our vibrant community of alumni and current members.</p>
     <p>If you have any questions or need assistance, feel free to reach out at any time. We’re here to help!</p>
+    <div style="background: linear-gradient(to right, #007BFF, #0066CC); padding: 20px; text-align: center;">
+    <h3>Your PPA ID is {ppaid}</h3>
+    <p>"Kindly ensure that this ID is retained for future reference."</p>
+    <div>
     <p>Looking forward to seeing you engage with the community.</p>
+    <p>Best regards,<br>Past Pupils' Association<br>Muslim Central College (National School)<br>Akkaraipattu</p>
+  </div>
+  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
+    <p>This is an automated message, please do not reply to this email.</p>
+  </div>
+</body>
+</html>
+`;
+
+export const LOGIN_NOTIFICATION_EMAIL_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Login Alert - PPA MCC</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(to right, #007BFF, #0066CC); padding: 20px; text-align: center;">
+    <h1 style="color: white; margin: 0;">New Login Notification</h1>
+  </div>
+  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <p>Hello {userName},</p>
+    <p>We detected a new login to your account on the Past Pupils' Association of Muslim Central College (National School), Akkaraipattu platform.</p>
+    <p><strong>Last Login Time:</strong> {lastLoginTime}</p>
+    <p>If this was you, no further action is needed.</p>
+    <p>If you did not log in, please secure your account by updating your password and contacting our support team immediately.</p>
+    <p>Thank you for keeping your account secure.</p>
     <p>Best regards,<br>Past Pupils' Association<br>Muslim Central College (National School)<br>Akkaraipattu</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">

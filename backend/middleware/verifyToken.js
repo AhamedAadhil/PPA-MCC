@@ -16,6 +16,16 @@ export const verifyToken = (req, res, next) => {
         .json({ message: "Unauthorized - Invalid token", success: false });
     }
     req.userId = decoded.userId;
+    req.role = decoded.role;
+    req.status = decoded.status;
+    if (req.status !== "ACTIVE") {
+      return res
+        .status(401)
+        .json({
+          message: "Unauthorized - Your account is inactive",
+          success: false,
+        });
+    }
     next();
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server Error!" });

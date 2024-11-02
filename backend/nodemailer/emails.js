@@ -1,5 +1,6 @@
 import { sendEmail } from "./nodemailer.js";
 import {
+  LOGIN_NOTIFICATION_EMAIL_TEMPLATE,
   PASSWORD_RESET_REQUEST_TEMPLATE,
   PASSWORD_RESET_SUCCESS_TEMPLATE,
   VERIFICATION_EMAIL_TEMPLATE,
@@ -27,10 +28,13 @@ export const sendVerificationEmail = async (email, verificationToken) => {
   }
 };
 
-export const sendWelcomeEmail = async (email, name) => {
+export const sendWelcomeEmail = async (email, name, ppaid) => {
   try {
     //the body of the mail
-    const message = WELCOME_EMAIL_TEMPLATE.replace("{clientName}", name);
+    const message = WELCOME_EMAIL_TEMPLATE.replace(
+      "{clientName}",
+      name
+    ).replace("{ppaid}", ppaid);
 
     // nodemailer on action
     const response = await sendEmail(
@@ -79,5 +83,25 @@ export const sendResetSuccessEmail = async (email) => {
   } catch (error) {
     console.error(error.message);
     throw new Error("Error sending reset success email ", error.message);
+  }
+};
+
+export const sendLoginNotifyMail = async (email, name, lastLogin) => {
+  try {
+    // the body of the mail
+    const message = LOGIN_NOTIFICATION_EMAIL_TEMPLATE.replace(
+      "{userName}",
+      name
+    ).replace("{lastLoginTime}", lastLogin);
+    // nodemailer on action
+    const response = await sendEmail(
+      email,
+      "PPA MCC:  Login Notfication",
+      message
+    );
+    console.log("Login notification email sent successfully", response);
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Error sending login notify email ", error.message);
   }
 };

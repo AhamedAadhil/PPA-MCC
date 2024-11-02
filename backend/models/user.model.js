@@ -33,14 +33,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     country: {
-      name: {
-        type: String,
-        required: true,
-      },
-      abbreviation: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
     phone: {
       type: String,
