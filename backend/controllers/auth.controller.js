@@ -130,7 +130,7 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Account not verified!" });
     }
     //generate a jwt token and update last login with current date
-    generateTokenAndSetCookie(res, user._id);
+    generateTokenAndSetCookie(res, user._id, user.role, user.status);
     await sendLoginNotifyMail(user.email, user.fullname, user.lastlogin);
     user.lastlogin = new Date();
     await user.save();
