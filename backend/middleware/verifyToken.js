@@ -18,13 +18,12 @@ export const verifyToken = (req, res, next) => {
     req.userId = decoded.userId;
     req.role = decoded.role;
     req.status = decoded.status;
+
     if (req.status !== "ACTIVE") {
-      return res
-        .status(401)
-        .json({
-          message: "Unauthorized - Your account is inactive",
-          success: false,
-        });
+      return res.status(401).json({
+        message: "Unauthorized - Your account is inactive",
+        success: false,
+      });
     }
     next();
   } catch (error) {
